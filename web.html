@@ -2,10 +2,259 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1.0, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(147, 197, 253, 0.28), transparent 35%),
+                linear-gradient(135deg, #071a48 0%, #123aaf 35%, #5da8ff 100%);
+            color: #edf6ff;
+        }
+
+        .page {
+            width: min(90%, 1100px);
+            margin: 0 auto;
+            padding: 40px 0 80px;
+        }
+
+        .card {
+            background: rgba(11, 28, 74, 0.82);
+            border: 1px solid rgba(191, 219, 254, 0.35);
+            border-radius: 28px;
+            box-shadow: 0 25px 60px rgba(5, 14, 32, 0.45);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: floatIn 1.2s ease-out;
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero {
+            padding: 36px 32px 28px;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.18), rgba(29, 78, 216, 0.08));
+            border-bottom: 1px solid rgba(191, 219, 254, 0.2);
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #dbeafe, #60a5fa);
+            color: #0b1f5b;
+            font-weight: 800;
+            padding: 8px 16px;
+            border-radius: 999px;
+            letter-spacing: 1px;
+            font-size: 12px;
+            text-transform: uppercase;
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+
+        h1 {
+            margin: 20px 0 10px;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+        }
+
+        .title {
+            margin: 0 0 20px;
+            font-size: 1.05rem;
+            color: #bfdbfe;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .cta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(96, 165, 250, 0.2);
+        }
+
+        .primary {
+            background: linear-gradient(135deg, #60a5fa, #1d4ed8);
+            color: white;
+        }
+
+        .secondary {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(191, 219, 254, 0.25);
+            color: #e0f2fe;
+        }
+
+        .content {
+            padding: 26px 32px 34px;
+            display: grid;
+            gap: 20px;
+        }
+
+        .panel {
+            background: rgba(148, 163, 184, 0.07);
+            border: 1px solid rgba(147, 197, 253, 0.25);
+            border-radius: 18px;
+            padding: 20px 20px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .panel:hover {
+            transform: translateY(-4px);
+            border-color: rgba(191, 219, 254, 0.6);
+        }
+
+        .panel h2 {
+            margin: 0 0 12px;
+            font-size: 1.1rem;
+            color: #dbeafe;
+        }
+
+        .panel p {
+            margin: 0;
+            line-height: 1.7;
+            color: #dfefff;
+        }
+
+        .fun {
+            color: #bae6fd;
+            font-style: italic;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 6px;
+        }
+
+        .stat {
+            text-align: center;
+            background: rgba(96, 165, 250, 0.08);
+            border-radius: 14px;
+            padding: 18px 12px;
+            border: 1px solid rgba(191, 219, 254, 0.2);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.5rem;
+            color: #ffffff;
+        }
+
+        .stat span {
+            color: #bfdbfe;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                width: min(92%, 1000px);
+                padding-top: 20px;
+            }
+
+            .hero, .content {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="page">
+        <div class="card">
+            <div class="hero">
+                <span class="badge">Student Profile</span>
+                <h1>Naveen Jidri</h1>
+                <p class="title">Student</p>
+
+                <div class="cta">
+                    <a href="#" class="button primary">View Portfolio</a>
+                    <a href="#" class="button secondary">Contact Me</a>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="panel">
+                    <h2>About Me</h2>
+                    <p>
+                        I’m a curious student who enjoys learning, creating, and turning ideas into something useful.
+                        My brain runs on coffee, curiosity, and the occasional “Wait… that might actually work!” moment.
+                    </p>
+                </div>
+
+                <div class="panel">
+                    <h2>Current Vibes</h2>
+                    <p class="fun">Building skills, chasing deadlines, and pretending I fully understand my schedule.</p>
+                </div>
+
+                <div class="panel">
+                    <h2>Quick Stats</h2>
+                    <div class="stats">
+                        <div class="stat">
+                            <strong>100%</strong>
+                            <span>Curiosity</span>
+                        </div>
+                        <div class="stat">
+                            <strong>∞</strong>
+                            <span>Ideas</span>
+                        </div>
+                        <div class="stat">
+                            <strong>1</strong>
+                            <span>Dream</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Student Motto</h2>
+                    <p>
+                        “I may not have all the answers yet, but I’m great at asking the right questions—and occasionally pretending I knew it all along.”
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

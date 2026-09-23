@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Places That Shaped Me</title>
+    <style>
+        :root {
+            --bg: #07111f;
+            --bg-2: #0d1d38;
+            --panel: rgba(16, 26, 46, 0.78);
+            --panel-strong: rgba(19, 37, 63, 0.95);
+            --line: rgba(148, 163, 184, 0.35);
+            --line-glow: rgba(96, 165, 250, 0.8);
+            --text: #edf6ff;
+            --muted: #b9cde8;
+            --accent: #f6b26b;
+            --orange: #ff9f5a;
+            --gold: #f9d976;
+            --blue: #7cc5ff;
+            --cyan: #79d7ff;
+            --royal: #1d4ed8;
+            --shadow: rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(124, 197, 255, 0.18), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(246, 178, 107, 0.12), transparent 28%),
+                linear-gradient(180deg, var(--bg) 0%, #081a2d 30%, #0d1d38 100%);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: radial-gradient(circle at center, black 35%, transparent 95%);
+            pointer-events: none;
+        }
+
+        .container {
+            width: min(1100px, 92%);
+            margin: 0 auto;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 60px 0 30px;
+        }
+
+        .hero-inner {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            background: rgba(124, 197, 255, 0.12);
+            color: var(--blue);
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            border: 1px solid rgba(124, 197, 255, 0.28);
+            border-radius: 999px;
+            padding: 10px 16px;
+            margin-bottom: 22px;
+        }
+
+        h1 {
+            font-size: clamp(2.8rem, 6vw, 6rem);
+            line-height: 0.95;
+            letter-spacing: -0.06em;
+            margin: 0;
+        }
+
+        .subtitle {
+            margin: 20px 0 30px;
+            color: var(--muted);
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            line-height: 1.7;
+            max-width: 620px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 26px;
+        }
+
+        .btn {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 999px;
+            padding: 14px 22px;
+            border: 1px solid rgba(255,255,255,0.12);
+            font-weight: 700;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 30px rgba(29, 78, 216, 0.18);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7cc5ff, #1d4ed8);
+            color: white;
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .progress-box {
+            margin-top: 8px;
+            padding: 18px 20px;
+            background: rgba(13, 29, 56, 0.7);
+            border: 1px solid rgba(124, 197, 255, 0.18);
+            border-radius: 18px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-label {
+            color: var(--muted);
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .progress-track {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            max-width: 560px;
+        }
+
+        .step {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+            opacity: 0.72;
+            transition: opacity 0.25s ease, color 0.25s ease;
+        }
+
+        .step.active {
+            color: var(--text);
+            opacity: 1;
+        }
+
+        .step::after {
+            content: "→";
+            color: rgba(255,255,255,0.35);
+        }
+
+        .step:last-child::after {
+            content: "";
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-shell {
+            position: relative;
+            width: min(100%, 430px);
+            height: 430px;
+            border-radius: 30px;
+            background: linear-gradient(160deg, rgba(10, 20, 37, 0.82), rgba(24, 37, 60, 0.6));
+            border: 1px solid rgba(157, 197, 255, 0.18);
+            box-shadow: 0 26px 60px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+        }
+
+        .map-shell::before {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border-radius: 22px;
+            background:
+                linear-gradient(120deg, rgba(124,197,255,0.08), rgba(255,159,90,0.08)),
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.04), transparent 25%);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .india-shape {
+            position: absolute;
+            inset: 36px 28px 38px 34px;
+            border-radius: 30% 40% 50% 38%;
+            background: linear-gradient(135deg, rgba(124,197,255,0.09), rgba(255,255,255,0.02));
+            border: 1px solid rgba(124,197,255,0.12);
+            transform: rotate(-9deg);
+        }
+
+        .india-shape::before,
+        .india-shape::after {
+            content: "";
+            position: absolute;
+            border-radius: 30% 70% 65% 35%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(124,197,255,0.08);
+        }
+
+        .india-shape::before {
+            width: 62%;
+            height: 48%;
+            left: 18%;
+            top: 20%;
+            transform: rotate(22deg);
+        }
+
+        .india-shape::after {
+            width: 42%;
+            height: 28%;
+            right: 12%;
+            bottom: 18%;
+            transform: rotate(-10deg);
+        }
+
+        .journey-marker {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f7d58f, #f39b62);
+            border: 3px solid rgba(255,255,255,0.9);
+            box-shadow: 0 0 0 10px rgba(249, 217, 118, 0.12), 0 0 20px rgba(246, 178, 107, 0.6);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .journey-marker.active {
+            transform: scale(1.25);
+            box-shadow: 0 0 0 12px rgba(124, 197, 255, 0.16), 0 0 22px rgba(124, 197, 255, 0.8);
+        }
+
+        .marker-1 { left: 34%; top: 58%; }
+        .marker-2 { left: 48%; top: 42%; }
+        .marker-3 { left: 58%; top: 52%; }
+        .marker-4 { left: 62%; top: 30%; }
+        .marker-5 { left: 72%; top: 24%; }
+
+        .journey-line {
+            position: absolute;
+            left: 34%;
+            top: 58%;
+            width: 39%;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(241, 196, 107, 0.8), rgba(124, 197, 255, 0.8));
+            transform: rotate(24deg);
+            box-shadow: 0 0 18px rgba(124, 197, 255, 0.45);
+            opacity: 0.8;
+        }
+
+        .journey-line::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: flow 2.8s linear infinite;
+        }
+
+        @keyframes flow {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        .timeline-section {
+            padding: 30px 0 80px;
+        }
+
+        .journey-wrap {
+            position: relative;
+            margin-top: 30px;
+            display: grid;
+            gap: 24px;
+        }
+
+        .journey-line-vertical {
+            position: absolute;
+            left: 50%;
+            top: 10px;
+            bottom: 10px;
+            width: 3px;
+            transform: translateX(-50%);
+            border-radius: 999px;
+            background: linear-gradient(180deg, rgba(119, 198, 255, 0.0), rgba(119,198,255,0.95), rgba(255, 159, 90, 0.95), rgba(119,198,255,0.1));
+            box-shadow: 0 0 18px rgba(124,197,255,0.4);
+        }
+
+        .journey-point {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f7d58f, #f39b62);
+            border: 4px solid rgba(8,17,31,1);
+            box-shadow: 0 0 0 8px rgba(249,217,118,0.14), 0 0 20px rgba(246,178,107,0.8);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .journey-point.active {
+            background: linear-gradient(135deg, #a5d8ff, #60a5fa);
+            box-shadow: 0 0 0 12px rgba(124,197,255,0.18), 0 0 26px rgba(124,197,255,0.8);
+            transform: translateX(-50%) scale(1.18);
+        }
+
+        .timeline-item {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 54px 1fr;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: riseIn 0.7s ease forwards;
+        }
+
+        @keyframes riseIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.15s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.25s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.35s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.45s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.55s; }
+
+        .timeline-card {
+            background: rgba(16, 26, 46, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 24px;
+            padding: 24px 24px 18px;
+            box-shadow: 0 16px 36px rgba(2,8,20,0.25);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 22px 42px rgba(2,8,20,0.35);
+            border-color: rgba(124,197,255,0.35);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-card {
+            grid-column: 1;
+        }
+
+        .timeline-item:nth-child(even) .timeline-card {
+            grid-column: 3;
+        }
+
+        .timeline-item.current .timeline-card {
+            border-color: rgba(124,197,255,0.6);
+            box-shadow: 0 0 0 1px rgba(124,197,255,0.2), 0 18px 40px rgba(29,78,216,0.15);
+            background: linear-gradient(180deg, rgba(19, 38, 65, 0.95), rgba(12, 21, 37, 0.9));
+        }
+
+        .timeline-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .city-name {
+            margin: 0;
+            font-size: clamp(1.5rem, 2vw, 2rem);
+            letter-spacing: -0.04em;
+        }
+
+        .mini-tag {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            border-radius: 999px;
+            padding: 8px 10px;
+            background: rgba(124,197,255,0.12);
+            color: var(--blue);
+            border: 1px solid rgba(124,197,255,0.18);
+        }
+
+        .connection {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin: 6px 0 12px;
+        }
+
+        .desc {
+            color: var(--muted);
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        .location-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, rgba(124,197,255,0.15), rgba(246,178,107,0.14));
+            border: 1px solid rgba(124,197,255,0.18);
+            color: var(--blue);
+            box-shadow: inset 0 0 25px rgba(124,197,255,0.08);
+        }
+
+        .timeline-item:nth-child(odd) .location-icon {
+            justify-self: end;
+        }
+
+        .timeline-item:nth-child(even) .location-icon {
+            justify-self: start;
+        }
+
+        .you-are-here {
+            position: absolute;
+            right: 18px;
+            bottom: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(124,197,255,0.11);
+            border: 1px solid rgba(124,197,255,0.28);
+            color: var(--blue);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            animation: blink 1.8s ease infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .timeline-item.current .you-are-here {
+            display: inline-flex;
+        }
+
+        .journey-end {
+            margin-top: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .journey-end::before,
+        .journey-end::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 1px;
+            background: rgba(148,163,184,0.3);
+            margin: 0 18px;
+        }
+
+        @media (max-width: 800px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                height: 300px;
+            }
+
+            .map-shell {
+                width: min(100%, 360px);
+                height: 300px;
+            }
+
+            .journey-wrap {
+                gap: 20px;
+            }
+
+            .journey-line-vertical {
+                left: 24px;
+                transform: translateX(0);
+            }
+
+            .timeline-item {
+                grid-template-columns: 24px 1fr;
+                gap: 18px;
+                padding-left: 0;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-card,
+            .timeline-item:nth-child(even) .timeline-card {
+                grid-column: 2;
+            }
+
+            .timeline-item:nth-child(odd) .location-icon,
+            .timeline-item:nth-child(even) .location-icon {
+                justify-self: center;
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            .journey-point {
+                left: 24px;
+                transform: translateX(0);
+            }
+
+            .journey-point.active {
+                transform: translateX(0) scale(1.18);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container hero-inner">
+            <div>
+                <div class="eyebrow">My Journey</div>
+                <h1>The Places That Shaped Me</h1>
+                <p class="subtitle">A journey from Davanagere to Bengaluru — each place shaped a chapter, a lesson, and a memory.</p>
+
+                <div class="hero-actions">
+                    <a href="#timeline" class="btn btn-primary">Explore My Journey</a>
+                    <a href="#bengaluru" class="btn btn-secondary">Where I Am Now</a>
+                </div>
+
+                <div class="progress-box">
+                    <div class="progress-label">Journey Progress</div>
+                    <div class="progress-track" aria-label="Journey progress">
+                        <span class="step active">Davanagere</span>
+                        <span class="step">Castlerock</span>
+                        <span class="step">Ramnagar</span>
+                        <span class="step">Belagavi</span>
+                        <span class="step">Bengaluru</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual" aria-hidden="true">
+                <div class="map-shell">
+                    <div class="india-shape"></div>
+                    <div class="journey-line"></div>
+                    <span class="journey-marker marker-1 active"></span>
+                    <span class="journey-marker marker-2"></span>
+                    <span class="journey-marker marker-3"></span>
+                    <span class="journey-marker marker-4"></span>
+                    <span class="journey-marker marker-5"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="timeline" class="container timeline-section">
+        <div class="journey-wrap">
+            <div class="journey-line-vertical"></div>
+            <div class="journey-point active" style="top: 8%;"></div>
+            <div class="journey-point" style="top: 28%;"></div>
+            <div class="journey-point" style="top: 48%;"></div>
+            <div class="journey-point" style="top: 68%;"></div>
+            <div class="journey-point" style="top: 88%;"></div>
+
+            <article class="timeline-item current" data-city="Davanagere" data-target="journey-1">
+                <div class="timeline-card" id="journey-1" tabindex="0">
+                    <div class="timeline-card-header">
+                        <h2 class="city-name">Davanagere</h2>
+                        <span class="mini-tag">Where It All Began</span>
+                    </div>
+                    <div class="connection">My Birthplace</div>
+                    <p class="desc">This is where my journey began.</p>
+                </div>
+                <div class="location-icon">📍</div>
+            </article>
+
+            <article class="timeline-item" data-city="Castlerock" data-target="journey-2">
+                <div class="timeline-card" id="journey-2" tabindex="0">
+                    <div class="timeline-card-header">
+                        <h2 class="city-name">Castlerock</h2>
+                        <span class="mini-tag">My Childhood</span>
+                    </div>
+                    <div class="connection">Where I Grew Up</div>
+                    <p class="desc">The town where I spent my growing-up years and created some of my earliest memories.</p>
+                </div>
+                <div class="location-icon">🏡</div>
+            </article>
+
+            <article class="timeline-item" data-city="Ramnagar" data-target="journey-3">
+                <div class="timeline-card" id="journey-3" tabindex="0">
+                    <div class="timeline-card-header">
+                        <h2 class="city-name">Ramnagar</h2>
+                        <span class="mini-tag">10th Grade</span>
+                    </div>
+                    <div class="connection">Where I Completed My 10th</div>
+                    <p class="desc">A bigger town where I completed an important milestone in my school life — my 10th grade.</p>
+                </div>
+                <div class="location-icon">🎓</div>
+            </article>
+
+            <article class="timeline-item" data-city="Belagavi" data-target="journey-4">
+                <div class="timeline-card" id="journey-4" tabindex="0">
+                    <div class="timeline-card-header">
+                        <h2 class="city-name">Belagavi</h2>
+                        <span class="mini-tag">12th Grade</span>
+                    </div>
+                    <div class="connection">Where I Completed My 12th</div>
+                    <p class="desc">The city where I completed my 12th grade and took another step toward my future.</p>
+                </div>
+                <div class="location-icon">📚</div>
+            </article>
+
+            <article class="timeline-item" id="bengaluru" data-city="Bengaluru" data-target="journey-5">
+                <div class="timeline-card" id="journey-5" tabindex="0">
+                    <div class="timeline-card-header">
+                        <h2 class="city-name">Bengaluru</h2>
+                        <span class="mini-tag">Present Day</span>
+                    </div>
+                    <div class="connection">Pursuing B.E.</div>
+                    <p class="desc">I am currently pursuing my Bachelor of Engineering in Bengaluru and building the next chapter of my journey.</p>
+                    <div class="you-are-here">You Are Here</div>
+                </div>
+                <div class="location-icon">🚀</div>
+            </article>
+        </div>
+
+        <div class="journey-end">Chapters of a life in motion</div>
+    </main>
+
+    <script>
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const progressSteps = document.querySelectorAll('.step');
+        const markers = document.querySelectorAll('.journey-marker');
+
+        function activateItem(item) {
+            timelineItems.forEach(el => {
+                el.classList.toggle('current', el === item);
+            });
+
+            const index = [...timelineItems].indexOf(item);
+            progressSteps.forEach((step, i) => {
+                step.classList.toggle('active', i <= index);
+            });
+
+            markers.forEach((marker, i) => {
+                marker.classList.toggle('active', i === index);
+            });
+
+            const points = document.querySelectorAll('.journey-point');
+            points.forEach((point, i) => {
+                point.classList.toggle('active', i === index);
+            });
+        }
+
+        timelineItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                activateItem(item);
+                const target = document.getElementById(item.dataset.target);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+
+            item.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    activateItem(item);
+                }
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        timelineItems.forEach(item => observer.observe(item));
+    </script>
+</body>
+</html>
